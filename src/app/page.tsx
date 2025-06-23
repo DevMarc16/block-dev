@@ -1,103 +1,79 @@
-import Image from "next/image";
+"use client"
+
+import { HeroSection } from "@/components/HeroSection"
+import { ServicesSection } from "@/components/ServicesSection"
+import { ProjectsSection } from "@/components/ProjectsSection"
+import { SkillsSection } from "@/components/SkillsSection"
+import { StatsSection } from "@/components/StatsSection"
+import { TestimonialsSection } from "@/components/TestimonialsSection"
+import { CTASection } from "@/components/CTASection"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  })
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  // Parallax transforms for background elements
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -300])
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -200])
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, -100])
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.5, 0.3])
+
+  return (
+    <div ref={containerRef} className="relative">
+      {/* Global parallax background layers */}
+      <div className="fixed inset-0 -z-20 pointer-events-none">
+        {/* Layer 1 - Slowest */}
+        <motion.div style={{ y: y1, opacity }} className="absolute inset-0">
+          <div className="absolute top-[20%] left-[10%] w-[600px] h-[600px] bg-gradient-to-br from-primary/10 via-purple-500/10 to-transparent rounded-full blur-3xl" />
+          <div className="absolute bottom-[30%] right-[15%] w-[500px] h-[500px] bg-gradient-to-br from-cyan-500/10 via-blue-500/10 to-transparent rounded-full blur-3xl" />
+        </motion.div>
+
+        {/* Layer 2 - Medium */}
+        <motion.div style={{ y: y2 }} className="absolute inset-0">
+          <div className="absolute top-[60%] left-[60%] w-[400px] h-[400px] bg-gradient-to-br from-pink-500/5 via-rose-500/5 to-transparent rounded-full blur-3xl" />
+          <div className="absolute top-[10%] right-[20%] w-[350px] h-[350px] bg-gradient-to-br from-orange-500/5 via-yellow-500/5 to-transparent rounded-full blur-3xl" />
+        </motion.div>
+
+        {/* Layer 3 - Fastest */}
+        <motion.div style={{ y: y3 }} className="absolute inset-0">
+          <div className="absolute top-[40%] right-[40%] w-[300px] h-[300px] bg-gradient-to-br from-green-500/5 via-emerald-500/5 to-transparent rounded-full blur-3xl" />
+          <div className="absolute bottom-[20%] left-[30%] w-[250px] h-[250px] bg-gradient-to-br from-indigo-500/5 via-violet-500/5 to-transparent rounded-full blur-3xl" />
+        </motion.div>
+      </div>
+
+      {/* Sections with smooth transitions */}
+      <div className="relative z-10">
+        <HeroSection />
+        
+        <div className="relative">
+          <ServicesSection />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <div className="relative">
+          <ProjectsSection />
+        </div>
+
+        <div className="relative">
+          <SkillsSection />
+        </div>
+
+        <div className="relative">
+          <StatsSection />
+        </div>
+
+        <div className="relative">
+          <TestimonialsSection />
+        </div>
+
+        <div className="relative">
+          <CTASection />
+        </div>
+      </div>
     </div>
-  );
+  )
 }
