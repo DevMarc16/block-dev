@@ -2,13 +2,13 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { 
-  Mail, 
-  MessageSquare, 
-  Calendar, 
-  Shield, 
-  Zap, 
-  CheckCircle, 
+import {
+  Mail,
+  MessageSquare,
+  Calendar,
+  Shield,
+  Zap,
+  CheckCircle,
   ArrowRight,
   User,
   Building,
@@ -20,7 +20,6 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { WalletConnect } from "@/components/WalletConnect"
 
 const contactMethods = [
   {
@@ -32,7 +31,7 @@ const contactMethods = [
     color: "text-blue-400"
   },
   {
-    title: "Schedule Call",  
+    title: "Schedule Call",
     description: "Book a 30-minute discovery call to discuss your requirements.",
     icon: Calendar,
     action: "Book Call",
@@ -44,7 +43,7 @@ const contactMethods = [
     description: "Get your existing contracts reviewed for security vulnerabilities.",
     icon: Shield,
     action: "Request Audit",
-    href: "#", 
+    href: "#",
     color: "text-yellow-400"
   }
 ]
@@ -75,10 +74,10 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
+
     // Simulate form submission
     await new Promise(resolve => setTimeout(resolve, 2000))
-    
+
     setIsSubmitting(false)
     setIsSubmitted(true)
   }
@@ -105,13 +104,13 @@ export default function Contact() {
               Contact
             </Badge>
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-              Let's Build{" "}
+              Let&apos;s Build{" "}
               <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent">
                 Together
               </span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Ready to transform your vision into secure, scalable blockchain solutions? 
+              Ready to transform your vision into secure, scalable blockchain solutions?
               Get in touch to discuss your project requirements.
             </p>
           </motion.div>
@@ -137,8 +136,8 @@ export default function Contact() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                     >
-                      <Card className="p-4 hover:shadow-lg transition-all duration-300 cursor-pointer" 
-                            onClick={() => window.open(method.href, '_blank')}>
+                      <Card className="p-4 hover:shadow-lg transition-all duration-300 cursor-pointer"
+                        onClick={() => window.open(method.href, '_blank')}>
                         <div className="flex items-start space-x-4">
                           <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                             <Icon className={`w-5 h-5 ${method.color}`} />
@@ -187,7 +186,7 @@ export default function Contact() {
             >
               <div>
                 <h3 className="text-lg font-semibold mb-4">Web3 Native Contact</h3>
-                <WalletConnect />
+
               </div>
             </motion.div>
           </motion.div>
@@ -329,10 +328,10 @@ export default function Contact() {
                       />
                     </div>
 
-                    <Button 
-                      type="submit" 
-                      variant="neon" 
-                      size="lg" 
+                    <Button
+                      type="submit"
+                      variant="neon"
+                      size="lg"
                       className="w-full"
                       disabled={isSubmitting}
                     >
@@ -364,7 +363,7 @@ export default function Contact() {
                     <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
                     <h3 className="text-2xl font-bold mb-4">Message Sent Successfully!</h3>
                     <p className="text-muted-foreground mb-6">
-                      Thank you for your inquiry. I&apos;ll review your project details and get back to you 
+                      Thank you for your inquiry. I&apos;ll review your project details and get back to you
                       within 24 hours with a detailed proposal.
                     </p>
                     <Button variant="outline" onClick={() => setIsSubmitted(false)}>
